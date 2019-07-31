@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="inout">
+	
+	<!-- inout 저장 -->
+	<insert id="insertInout" parameterType="com.javaex.vo.InOutVo">
+		<![CDATA[
+			insert into inouts (
+						tripNo,
+						inoutNo,
+						cateNo,
+						cateName,
+						inoutType,
+						pPrice,
+						pUnitNo,
+						pUnitName,
+						pMethod,
+						mPrice,
+						mUnitNo,
+						mUnitName,
+						mMethod,
+						title,
+						useDate,
+						lat,
+						lon,
+						country,
+						city,
+						memo,
+						cardPrice,
+						cardUnitNo,
+						cardUnitName,
+						regDate
+					)
+			values	(
+						#{tripNo}, 
+						#{inoutNo}, 
+						#{cateNo}, 
+						#{cateName}, 
+						#{inoutType}, 
+						#{pPrice}, 
+						#{pUnitNo}, 
+						#{pUnitName}, 
+						#{pMethod},
+						#{mPrice},
+						#{mUnitNo},
+						#{mUnitName},
+						#{mMethod}, 
+						#{title}, 
+						#{useDate}, 
+						#{lat}, 
+						#{lon}, 
+						#{country}, 
+						#{city}, 
+						#{memo}, 
+						#{cardPrice}, 
+						#{cardUnitNo}, 
+						#{cardUnitName}, 
+						NOW()
+			)
+		]]>
+	</insert>
+	
+	
+	
+	<!-- inout 수정 -->
+	<update id="updateInout" parameterType="com.javaex.vo.InOutVo">
+		<![CDATA[
+			update inouts 
+			set
+				cateNo = #{cateNo}, 
+				cateName = #{cateName}, 
+				inoutType = #{inoutType}, 
+				pPrice = #{pPrice}, 
+				pUnitNo = #{pUnitNo}, 
+				pUnitName = #{pUnitName}, 
+				pMethod = #{pMethod},
+				mPrice = #{mPrice},
+				mUnitNo = #{mUnitNo},
+				mUnitName = #{mUnitName},
+				mMethod = #{mMethod}, 
+				title = #{title}, 
+				useDate = #{useDate}, 
+				lat = #{lat}, 
+				lon = #{lon}, 
+				country = #{country}, 
+				city = #{city}, 
+				memo = #{memo}, 
+				cardPrice = #{cardPrice}, 
+				cardUnitNo = #{cardUnitNo}, 
+				cardUnitName = #{cardUnitName}, 
+				regDate = NOW()
+			WHERE inoutNo = #{inoutNo}
+		]]>
+	</update>
+	
+	
+	<!-- inoutNo 값 조회 -->
+	<select id="selectInoutNo" parameterType="int"  resultType="int">
+		<![CDATA[
+			select count(*)
+			from inouts
+			where inoutNo = #{inoutNo}
+		]]>
+	</select>
+	
+	
+	<!-- inoutNo로 삭제-->
+	<delete id="deleteInout" parameterType="int" >
+		<![CDATA[
+			delete from inouts
+			where inoutNo = #{inoutNo}
+		]]>
+	</delete>
+	
+	
+	<!-- inoutList 가져오기-->
+	<select id="selectInoutList" parameterType="int"  resultType="com.javaex.vo.InOutVo">
+		<![CDATA[
+			select *
+			from inouts
+			where tripNo = #{tripNo}
+			order by useDate desc
+		]]>
+	</select>
+	
+	
+	
+	
+	<!-- inout 가져오기-->
+	<select id="selectInout" parameterType="int"  resultType="com.javaex.vo.InOutVo">
+		<![CDATA[
+			select *
+			from inouts
+			where inoutNo = #{inoutNo}
+		]]>
+	</select>
+	
+	
+	<!-- inoutList 가져오기-->
+	<select id="selectInoutListPage" parameterType="map"  resultType="com.javaex.vo.InOutVo">
+		<![CDATA[
+			select *
+			from inouts
+			where tripNo = #{tripNo}
+			order by useDate desc
+			limit #{startIndex}, #{offset}
+		]]>
+	</select>
+	
+	
+	
+	<!-- inout totalCount -->
+	<select id="selectTotalCount" parameterType="int"  resultType="int">
+		<![CDATA[
+			select count(*)
+			from inouts
+			where tripNo = #{tripNo}
+		]]>
+	</select>
+	
+</mapper>
